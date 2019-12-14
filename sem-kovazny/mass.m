@@ -9,7 +9,7 @@ ny  = size(u,2);
 num = nx*ny;
 
 uvec= reshape(u,num,1);
-Bu  = Jac*Q'*Bm*Q*uvec;
+Bu  = Jac*(Q'*(Bm*(Q*uvec)));
 Bu  = reshape(Bu,nx,ny);
 
 end

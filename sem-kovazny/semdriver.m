@@ -6,11 +6,11 @@ post  = 0;
 fdm_use = 1;
 
 % Node number in one element
-nx1 = 8;
-ny1 = 8;
+nx1 = 10;
+ny1 = 10;
 % Element number on each direction
-Ex  = 5;
-Ey  = 5;
+Ex  = 2;
+Ey  = 2;
 % total number of elements
 Etol = Ex*Ey;
 % Number of nodes for multielement on one direction
@@ -135,8 +135,8 @@ ifxperiodic = 0;
 ifyperiodic = 0;
 
 % T=0 ==> steady
-T   = 20.0;
-CFL = 0.2;
+T   = 5000.0;
+CFL = 0.5;
 
 end
 
@@ -178,10 +178,10 @@ Bmu = sparse(kron(diag(ones(Etol,1)),Bmk));
 Bdu = sparse(kron(diag(ones(Etol,1)),Bdk));
 
 % laplacian operator preparation (on vel nodes)
-dx2  = kron(Bmh,Drm1.'*Bmh*Drm1)/(Jmx*Jmx);
-dy2  = kron(Dsm1.'*Bmh*Dsm1,Bmh)/(Jmy*Jmy);
-lapL = kron(diag(ones(Etol,1)),(dx2+dy2)*Jm1);
-lapu = Qmv.'*lapL*Qmv;
+dx2  = sparse(kron(Bmh,Drm1.'*Bmh*Drm1)/(Jmx*Jmx));
+dy2  = sparse(kron(Dsm1.'*Bmh*Dsm1,Bmh)/(Jmy*Jmy));
+lapL = sparse(kron(diag(ones(Etol,1)),(dx2+dy2)*Jm1));
+lapu = sparse(Qmv.'*lapL*Qmv);
 
 if(fdm_use == 1)
     % fast diagonalization setup
@@ -344,6 +344,8 @@ for it=1:nt
         end
         if(mod(it,50)==0)
             mesh(xm1,ym1,vx);
+            calerr=norm(vx-vxe,Inf);
+            calerr
         end
 
     end

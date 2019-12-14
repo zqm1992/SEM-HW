@@ -12,10 +12,10 @@ nyo =round(sqrt(numo));
 
 pvec = reshape(p,num,1);
 
-JBp  = BL_m*JL_rs*Qp*pvec;
+JBp  = (BL_m*(JL_rs*(Qp*pvec)));
 
-px   = Qv.'*DL_r_t*JBp*Jm/Jx;
-py   = Qv.'*DL_s_t*JBp*Jm/Jy;
+px   = (Qv.'*(DL_r_t*JBp))*Jm/Jx;
+py   = (Qv.'*(DL_s_t*JBp))*Jm/Jy;
 
 px   = reshape(px,nxo,nyo);
 py   = reshape(py,nxo,nyo);
