@@ -12,8 +12,4 @@ uvec= reshape(u,num,1);
 Bu  = Jac*Q'*Bm*Q*uvec;
 Bu  = reshape(Bu,nx,ny);
 
-% ud  = ABu(Js,Jr,u);
-% Bud = Bmd .* ud;
-% Bu  = ABu(Js',Jr',Bud);
-
 end

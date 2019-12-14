@@ -5,7 +5,7 @@ function [vx,vy,pr] = pres_proj(ux,uy,pr1,b0,Biv,Rxvx,Ryvx,Rxvy,Ryvy,...
                                 BL_m,Jrs_p2v,DL_r,DL_s,DL_r_t,DL_s_t,...
                                 Jm,Jx,Jy,Qmv,Qmp,Sxp,Syp,Lip)
 
-	g = -diver(ux,uy,BL_m,Jrs_p2v,DL_r,DL_s,Qmv,Qmp);
+	g = -diver(ux,uy,BL_m,Jrs_p2v,DL_r,DL_s,Qmv,Qmp,Jm,Jx,Jy);
     
     delp = b0 * fdm(g,Sxp,Syp,Lip);
 

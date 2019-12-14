@@ -34,7 +34,6 @@ function [x,k,rsqnew] = cg_visc(b,mask,x0,lapu,Bmu,Qmv,Jac,b0,tol,maxiter,visc0)
 		x  = x + al*p;
 		r  = r - al*Ap;
 		rsqnew=dot(r,r); if(sqrt(rsqnew) < tol); return; end;
-        rsqnew
 		be = rsqnew / rsqold;
 		p  = r + be*p;
 		rsqold = rsqnew;

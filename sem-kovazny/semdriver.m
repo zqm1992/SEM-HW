@@ -6,11 +6,11 @@ post  = 0;
 fdm_use = 1;
 
 % Node number in one element
-nx1 = 10;
-ny1 = 10;
+nx1 = 8;
+ny1 = 8;
 % Element number on each direction
-Ex  = 4;
-Ey  = 4;
+Ex  = 5;
+Ey  = 5;
 % total number of elements
 Etol = Ex*Ey;
 % Number of nodes for multielement on one direction
@@ -178,9 +178,9 @@ Bmu = sparse(kron(diag(ones(Etol,1)),Bmk));
 Bdu = sparse(kron(diag(ones(Etol,1)),Bdk));
 
 % laplacian operator preparation (on vel nodes)
-dx2  = kron(Bmh,Drm1.'*Bmh*Drm1);
-dy2  = kron(Dsm1.'*Bmh*Dsm1,Bmh);
-lapL = kron(diag(ones(Etol,1)),(dx2+dy2)/Jm1);
+dx2  = kron(Bmh,Drm1.'*Bmh*Drm1)/(Jmx*Jmx);
+dy2  = kron(Dsm1.'*Bmh*Dsm1,Bmh)/(Jmy*Jmy);
+lapL = kron(diag(ones(Etol,1)),(dx2+dy2)*Jm1);
 lapu = Qmv.'*lapL*Qmv;
 
 if(fdm_use == 1)
@@ -303,8 +303,8 @@ for it=1:nt
 				      pr1=pr;
                       
     if(ifvel)
-        gvx1 = mass(fvx,Bmu,Qmv,Jm1) - advect(vx1,vx1,vy1,Bdu,Jrs_v2d,DxL,DyL,Qmv);
-        gvy1 = mass(fvy,Bmu,Qmv,Jm1) - advect(vy1,vx1,vy1,Bdu,Jrs_v2d,DxL,DyL,Qmv);
+        gvx1 = mass(fvx,Bmu,Qmv,Jm1) - advect(vx1,vx1,vy1,Bdu,Jrs_v2d,DxL,DyL,Qmv,Jm1,Jmx,Jmy);
+        gvy1 = mass(fvy,Bmu,Qmv,Jm1) - advect(vy1,vx1,vy1,Bdu,Jrs_v2d,DxL,DyL,Qmv,Jm1,Jmx,Jmy);
         
         % pressure forcing
 		[px,py]=vgradp(pr1,Bmu,Jrs_p2v,DxLt,DyLt,Qmv,Qmp,Jm1,Jmx,Jmy);
